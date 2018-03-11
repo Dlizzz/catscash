@@ -19,6 +19,7 @@ import os
 import argparse
 import configparser
 from pathlib import Path
+from qifparse.parser import QifParser
 
 __version__ = "0.0.1"
 __date__ = "2018-03-03"
@@ -31,17 +32,6 @@ __license__ = "LGPL-3.0"
 class Error(Exception):
     """Class: base class for exceptions in this module."""
     pass
-
-class QIFParserError(Error):
-    """Exception raised for QIF parsing error.
-    Attributes:
-        expression -- input expression in which the error occurred
-        message -- explanation of the error
-    """
-    def __init__(self, expression, message):
-        self.expression = expression
-        self.message = message
-        super().__init__()
 
 
 # Functions
