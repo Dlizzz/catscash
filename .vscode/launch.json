@@ -11,20 +11,10 @@
             "stopOnEntry": true,
             "pythonPath": "${config:python.pythonPath}",
             "program": "${file}",
-            "cwd": "${workspaceFolder}",
-            "env": {},
-            "envFile": "${workspaceFolder}/.env",
-            "debugOptions": [
-                "RedirectOutput"
-            ]
-        },
-        {
-            "name": "Python",
-            "type": "python",
-            "request": "launch",
-            "stopOnEntry": true,
-            "pythonPath": "${config:python.pythonPath}",
-            "program": "${file}",
+            "args": [
+                "--verbose",
+                "--qif-file", "\\\\CATSSERVER\\Matou\\Projects\\Development\\python\\catscash\\inputs\\T_cpte_07640_039222P_du_11-01-2018_au_23-02-2018.qif"
+            ],
             "cwd": "${workspaceFolder}",
             "env": {},
             "envFile": "${workspaceFolder}/.env",

@@ -9,7 +9,7 @@
         -q, --qif-file: QIF file to integrate in the database 
     Description:
         Parse the given QIF file and upload it in the database with the right
-        categories and third parties 
+        categories and payees 
     Requirements:
 """
 
@@ -19,7 +19,7 @@ import os
 import argparse
 import configparser
 from pathlib import Path
-from qifparse.parser import QifParser
+from qifparse.parser import QifParser, QifParserException
 
 __version__ = "0.0.1"
 __date__ = "2018-03-03"
@@ -54,7 +54,7 @@ def main():
     """ Script main function """
     # Parse command line arguments
     parser = argparse.ArgumentParser(description="Upload QIF file in database"
-                                     + "with right categories and third parties")
+                                     + "with right categories and payees")
     parser.add_argument("-v", "--verbose", action="store_true")
     parser.add_argument("-c", "--config-file", help="Alternative configuration file",
                         default=Path(__file__).stem + ".conf")
@@ -73,7 +73,17 @@ def main():
         print("Fatal - configuration reading error: " + err.message)
         exit(1)
 
-
+    # Parse QIF file
+    if args.verbose:
+        print("Parsing QIF file: " + args.qif_file)
+    try:
+        with open(args.qif_file,'r') as f:
+            qif = QifParser.parse(f)
+    except (IOError, QifParserException) as err:
+        print("Fatal - QIF file parsing error: " + str(err))
+        exit(1)
+    print(str(qif))
+    
 # Main
 if __name__ == "__main__":
     main()
